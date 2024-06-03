@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    /*
+      함수 작성 방법
+      1. 함수 선언
+      2. 함수 표현식
+    */
+  </script>
+
+  <script>
+
+    /*
+      함수 선언
+      1. 함수 이름을 결정해서 함수를 만드는 방식이다. (이름 있는 함수)
+      2. 함수 선언은 호이스팅(hoisting) 된다.
+      3. 형식
+        1) 함수 선언 (함수 정의 : 함수 만들기)
+          function 함수명([매개변수]){
+            함수본문
+            [return 반환]
+          }
+        2) 함수 호출
+          함수명([인자])
+    */
+
+    // 함수 호출
+    f1();
+
+    // 함수 선언 (호이스팅되므로 먼저 처리된다.)
+    function f1(){
+      console.log('f1()');
+    }
+
+    // 함수 선언
+    function f2(param){
+      console.log(param, typeof param);
+    }
+
+    // 함수 호출
+    var param = 'hello world';
+    f2(param);
+    f2({
+      name: '홍길동',
+      age: 30
+    })
+
+  </script>
+
+  <script>
+
+    /*
+      함수 표현식
+      1. 함수를 변수에 저장하는 방식이다.
+      2. 주로 이름이 없는 익명 함수가 사용된다. (이름 있는 함수도 함수 표현식이 가능하다.)
+      3. 변수를 함수처럼 호출해서 사용할 수 있다.
+      4. 함수 표현식은 호이스팅(hoisting) 안 된다.
+      5. 이름이 없는 익명 함수 형식
+        1) 함수 표현식
+          var 변수명 = function([매개변수]){
+            함수본문
+            [return 반환]
+          }
+        2) 함수 호출
+          변수명([인자])
+      6. 이름이 있는 함수 형식
+        1) 함수 표현식
+          var 변수명 = function 함수명([매개변수]){
+            함수본문
+            [return 반환]
+          }
+        2) 함수 호출
+          변수명([인자])
+          함수명([인자])
+    */
+
+    // 함수 표현식
+    var f3 = function(){
+     console.log('f3()');
+    }
+    // 함수 호출
+    f3();
+
+  </script>
+
+  <script>
+
+    /*
+      인자와 매개변수
+      1. 매개변수를 선언할 때 선언 키워드(var)는 사용하지 않는다.
+      2. 인자는 사실 모든 데이터(값, 배열, 객체, 함수 등)가 가능하다.
+      3. 매개변수의 디폴트 처리가 가능하다.
+    */
+
+    // 배열 전달하기 (참조 변수)
+    function f4(numbers){
+      numbers[0] = 10;
+      numbers[1] = 20;
+    }
+    var array = [];  // 비어 있는 배열
+    f4(array);
+    console.log(array);
+
+    // 객체 전달하기 (참조 변수)
+    function f5(obj){
+      obj.name = '홍길동';
+      obj.age = 30;
+    }
+    var person = {};  // 비어 있는 객체
+    f5(person);
+    console.log(person);
+
+    // 함수 전달하기 - 1 (이름 있는 함수 전달하기)
+    function f6(callback){
+      callback();
+    }
+    function myFunc(){
+      console.log('myFunc()');
+    }
+    f6(myFunc);  // 함수 이름을 인자로 전달한다.
+
+    // 함수 전달하기 - 2 (이름 없는 익명 함수 전달하기)
+    function f7(callback){
+      callback();
+    }
+    f7(function(){
+      console.log('anonymous()');
+    })
+
+    // 인자가 있는 callback - 1
+    function f8(callback, number){
+      callback(number);
+    }
+    f8(yourFunc, 10);  // 10
+    function yourFunc(number){
+      console.log(number);
+    }
+
+    // 인자가 있는 callback - 2
+    function f9(callback, number){
+      callback(number);
+    }
+    f9(function(number){
+      console.log(number);
+    }, 20);  // 20
+
+    // 매개변수의 디폴트 처리
+    function f10(number){
+      number = number || 0;
+      console.log(number);
+    }
+    f10();   // 0
+    f10(10)  // 10;
+
+  </script>
+
+  <script>
+
+    /*
+      반환
+      1. 반환타입은 존재하지 않는다.
+      2. return 값; 을 통해서 값을 반환할 수 있다.
+      3. return; 을 통해서 함수를 종료할 수 있다.
+    */
+
+    function f11(number){
+      return number + 1;
+    }
+    var number = 10;
+    number = f11(number);
+    console.log(number);
+
+  </script>
+
+  <script>
+
+    /*
+      함수의 중첩
+      1. 함수 내부에 또 다른 함수를 선언할 수 있다.
+      2. 외부 함수는 내부 함수의 변수를 사용할 수 없다.
+      3. 내부 함수는 외부 함수의 변수를 사용할 수 있다.
+    */
+
+    /*
+      클로저
+      내부 함수의 수명이 외부 함수보다 길게 유지되는 기능
+    */
+
+    function outer(a){
+
+      function inner(b){
+        return a + b;  // 내부 함수는 외부 함수의 변수 a를 사용할 수 있다.
+      }
+
+      return inner;    // 내부 함수 반환
+
+    }
+
+    // outer(10) 과 inner(20) 호출하기
+    var result = outer(10)(20);
+    console.log(result);
+
+  </script>
+
+</body>
+</html>
