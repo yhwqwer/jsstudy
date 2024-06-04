@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // eval() : 인자값을 JavaScript 코드로 인식하고 실행하는 함수
+    eval('console.log("hello world")');
+
+    // isNaN() : NaN 여부를 true/false 로 반환
+    var number = 'abc';
+    if(isNaN(number)){
+      console.log('숫자가 아니다.');
+    } else {
+      console.log('숫자이다.');
+    }
+
+    // encodeURIComponent() : 인코딩
+    console.log(encodeURIComponent('오늘날씨'));
+
+    // decodeURIComponent() : 디코딩
+    console.log(decodeURIComponent('%EC%98%A4%EB%8A%98%EB%82%A0%EC%94%A8'));
+
+    /*
+      setTimeout()
+      1. 지정한 시간(밀리초) 후에 한 번만 동작한다.
+      2. 형식
+        1) 동작 : var timerId = setTimeout(함수, 밀리초);
+        2) 취소 : clearTimeout(timerId);
+    */
+    var timerId = setTimeout(function(){
+      alert('hello world');
+    }, 2000)
+    console.log(timerId);
+    clearTimeout(timerId);
+
+    /*
+      setInterval()
+      1. 지정한 시간(밀리초) 후에 여러 번 동작한다.
+      2. 형식
+        1) 동작 : var timerId = setInterval(함수, 밀리초);
+        2) 취소 : clearInterval(timerId);
+    */
+
+    // timer(5);  // 5초 타이머 실행
+
+    var msg = '';
+
+    function timer(number){
+      var timerId = setInterval(function(){
+        if(number === 0){
+          msg = '<h1>뿅</h1>';
+          document.write(msg);
+          clearInterval(timerId);
+          return;
+        }
+        msg = '<h1>' + number-- + '</h1>';
+        document.write(msg);
+      }, 1000)
+    }
+
+    // setTimeout() 함수로 타이머 구현하기 (재귀 호출 : recursive call)
+
+    countdown(5);  // 5초 타이머 실행
+
+    var msg = '';
+    
+    function countdown(number){
+      setTimeout(function(){
+        if(number === 0) {
+          msg = '<h1>뿅</h1>';
+          document.write(msg);
+          return;
+        }
+        msg = '<h1>' + number + '</h1>';
+        document.write(msg);
+        countdown(number - 1);
+      }, 1000)
+    }
+
+  </script>
+</body>
+</html>
