@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+  /*
+    이벤트 (Event)
+    1. DOM에서 발생하는 이벤트를 나타낸다.
+    2. 시스템에 일어나는 사건(action) 또는 발생(occurrence)을 의미한다.
+    3. 주요 이벤트 발생 방식
+      1) 사용자의 액션에 의해서 발생(클릭, 키보드 입력 등)
+      2) API의 이벤트 생성
+  */
+
+  /*
+    이벤트 대상 (target)
+    1. 이벤트가 등록된 DOM요소를 의미한다.
+    2. 확인 방법
+      1) this
+      2) 이벤트 객체의 target 속성(property) 또는 currentTarget 속성(property)
+  */
+
+  /*
+    이벤트 종류 (type)
+    1. 이벤트의 종류를 의미한다.
+    2. 확인 방법
+      이벤트 객체의 type 속성(property)
+    3. 주요 이벤트 종류
+      1) click / dblclick
+      2) mouseover / mouseout
+      3) keydown / keypress / keyup
+      4) focus / blur
+      5) submit
+  */
+
+  /*
+    이벤트 속성 (property)
+    1. 이벤트 대상 (target)이 가지고 있는 이벤트 속성(property) 이다.
+    2. 이벤트 종류 (type) 앞에 on 을 추가하면 된다.
+    3. 주요 이벤트 속성
+      1) onclick / ondblclick
+      2) onmouseover / onmouseout
+      3) onkeydown / onkeypress / onkeyup
+      4) onfocus / onblur
+      5) onsubmit
+  */
+
+  /*
+    이벤트 리스너 (listener)
+    1. 이벤트가 발생하면 동작하는 함수(function)이다.
+    2. 이벤트 핸들러 (handler) 라고도 한다.
+    3. 이벤트 리스너의 매개변수에는 이벤트 객체를 선언할 수 있다.
+  */
+
+  /*
+    이벤트 객체 (object)
+    1. 발생한 이벤트의 상세 정보를 저장하고 있는 객체이다.
+    2. 이벤트가 발생하면 자동으로 생성된다.
+    3. 자동으로 이벤트 리스너에 인자로 전달된다.
+  */
+
+</script>
+
+<div>
+  <button type="button" id="btn1">고전이벤트모델</button>
+</div>
+<script>
+
+  /*
+    고전 이벤트 모델
+    1. 하나의 이벤트 종류에 하나의 이벤트 리스너를 등록할 수 있다.
+    2. 형식
+      1) 함수 선언
+        function 함수명(이벤트객체){
+
+        }
+        이벤트대상.이벤트속성 = 함수명;
+      2) 익명 함수 (주로 사용하는 방식)
+        이벤트대상.이벤트속성 = function(이벤트객체){
+
+        }
+  */
+
+  /*
+    이벤트 대상   : btn1, evt.target, evt.currentTarget, this
+    이벤트 종류   : click, evt.type
+    이벤트 속성   : onclick
+    이벤트 리스너 : function(evt){ f1(); f2(evt); }
+    이벤트 객체   : evt
+  */
+  var btn1 = document.getElementById('btn1');
+  btn1.onclick = function(evt){
+    f1();
+    f2(evt);
+  }
+  function f1() {
+    alert('hello world');
+  }
+  function f2(evt) {
+    alert(evt.target.textContent);
+  }
+
+</script>
+
+<div>
+  <button type="button" id="btn2">표준이벤트모델</button>
+</div>
+
+<script>
+
+  /*
+    표준 이벤트 모델
+    1. 하나의 이벤트 종류에 여러 개의 이벤트 리스너를 등록할 수 있다.
+    2. 형식
+      1) 함수 선언
+        function 함수명1(이벤트객체){
+
+        }
+        function 함수명2(이벤트객체){
+
+        }
+        이벤트대상.addEventListener('이벤트종류', 함수명1);
+        이벤트대상.addEventListener('이벤트종류', 함수명2);
+      2) 익명 함수 (주로 사용하는 방식)
+        이벤트대상.addEventListener('이벤트종류', function(이벤트객체){
+
+        })
+  */
+
+  var btn2 = document.getElementById('btn2');
+  btn2.addEventListener('click', f3);
+  btn2.addEventListener('click', f4);
+  function f3(){
+    alert('hello world');
+  }
+  function f4() {
+    alert('nice to meet you');
+  }
+
+</script>
+
+<div>
+  <button type="button" onclick="f5(this)">인라인이벤트모델</button>
+</div>
+<script>
+
+  /*
+    인라인 이벤트 모델
+    1. DOM에 직접 이벤트 속성을 등록하고 이벤트 리스너를 호출하는 방식이다.
+    2. 이름이 있는 함수를 (함수 선언) 주로 사용한다.
+    3. 형식
+      function 함수명(){
+
+      }
+      <태그 이벤트속성="함수명()">
+  */
+
+  function f5(btn){
+    alert(btn.textContent);
+  }
+</script>
+
+<div id="link-wrap">
+  <div><a href="https://www.naver.com/">네이버</a></div>
+  <div><a href="https://www.google.com/">구글</a></div>
+  <div><a href="javascript:f6()">함수호출</a></div>
+</div>
+<script>
+
+  /*
+    기본 이벤트
+    1. 어떤 DOM요소는 특정 이벤트를 이미 가지고 있다.
+    2. 주요 예시
+      1) <a> 태그를 클릭하면 href 속성으로 이동한다.
+      2) <form> 태그를 서브밋(submit) 하면  action 속성으로 데이터를 전송하고 입력 값을 초기화한다.
+    3. 이벤트 객체에는 기본 이벤트 동작을 막을 수 있는 preventDefault() 메소드가 존재한다.
+  */
+
+  function f6(){
+    alert('hello world');
+  }
+
+  // <a> 태그의 함수 호출만 막아 보기
+  var aList = document.querySelectorAll('#link-wrap a');
+  aList.forEach(function(a, i){
+    a.addEventListener('click', function(evt){
+      // click 한 a : 이벤트 대상 (target)
+      if(evt.target.href.startsWith('javascript')){    // click 한 <a> 태그의 href 속성 (property) 이 'javascript' 로 시작한다면
+        evt.preventDefault();
+      }
+    })
+  })
+
+</script>
+
+<!-- 로그인 화면 만들기  :  아이디나 비밀번호가 공백이면 서브밋 하지 않기 -->
+
+<div>
+  <form id="login-form" action="#" method="post">
+    <div>
+      <input type="text" name="id" id="id" placeholder="ID">
+    </div>
+    <div>
+      <input type="password" name="pw" id="pw" placeholder="password">
+    </div>
+    <div>
+      <button type="submit">Log In</button>
+    </div>
+  </form>
+</div>
+<script>
+
+  var loginForm = document.getElementById('login-form');
+  var id = document.getElementById('id');
+  var pw = document.getElementById('pw');
+
+  loginForm.addEventListener('submit', function(evt){
+    if(id.value === ''){
+      alert('아이디를 입력하세요.');
+      id.focus();
+      evt.preventDefault();
+      return;
+    }
+    if(pw.value === ''){
+      alert('비밀번호를 입력하세요.');
+      pw.focus();
+      evt.preventDefault();
+      return;
+    }
+  })
+
+
+</script>
+
+</body>
+</html>

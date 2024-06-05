@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+
+  /*
+    BOM
+    1. Browser Object Model (브라우저 객체 모델)
+    2. 브라우저의 구성 요소를 JavaScript 객체로 저장한 뒤 사용할 수 있다.
+    3. 주요 BOM 요소
+      1) window   : 브라우저 화면 자체를 의미한다. (모든 JavaScript 객체의 최상위 객체이다.) (코드상에서 생략할 수 있다.)
+      2) history  : 방문했던 경로를 기억하고 있는 객체이다.
+      3) location : 경로(URL)를 관리하는 객체이다.
+      4) screen   : 브라우저 화면 정보를 관리하는 객체이다.
+  */
+
+</script>
+
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+</style>
+<div>
+  <button type="button" id="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
+  <button type="button" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></button>
+</div>
+<script>
+  
+  var backBtn = document.getElementById('back-btn');
+  var forwardBtn = document.getElementById('forward-btn');
+
+  backBtn.addEventListener('click', function(){
+    history.back();
+  })
+
+  forwardBtn.addEventListener('click', function(){
+    history.forward();
+  })
+
+  // n단계 뒤로 가기
+  // history.go(-n);
+
+</script>
+<style>
+  .blind { display: none; }
+</style>
+<div id="box" style="display: flex;">
+  <div>
+    <img src="../assets/images/logo_coupang.png" width="50px">
+    <span class="blind">https://www.coupang.com/</span>
+  </div>
+  <div>
+    <img src="../assets/images/logo_daum.png" width="50px">
+    <span class="blind">https://www.daum.net/</span>
+  </div>
+  <div>
+    <img src="../assets/images/logo_google.png" width="50px">
+    <span class="blind">https://www.google.com/</span>
+  </div>
+  <div>
+    <img src="../assets/images/logo_naver.png" width="50px">
+    <span class="blind">https://www.naver.com/</span>
+  </div>
+</div>
+<script>
+
+  var imgList = document.querySelectorAll('#box img');
+  imgList.forEach(function(img, i){
+    img.addEventListener('click', function(evt){
+      var url = evt.target.nextElementSibling.textContent;
+      location.href = url;
+    })
+  })
+
+</script>
+
+</body>
+</html>
