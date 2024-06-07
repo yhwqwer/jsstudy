@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
   
@@ -22,6 +24,9 @@
   */
 
 </script>
+
+
+<!-- history -->
 
 <style>
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
@@ -47,6 +52,10 @@
   // history.go(-n);
 
 </script>
+
+
+
+<!-- location -->
 <style>
   .blind { display: none; }
 </style>
@@ -77,6 +86,94 @@
       location.href = url;
     })
   })
+
+</script>
+
+
+
+<!-- screen -->
+<script>
+
+  document.write('<div>스크린 너비 : ' + screen.width + '</div>');
+  document.write('<div>스크린 높이 : ' + screen.height + '</div>');
+  document.write('<div>스크린 가용 너비 : ' + screen.availWidth + '</div>');
+  document.write('<div>스크린 가용 높이 : ' + screen.availHeight + '</div>');
+
+</script>
+
+
+
+<!-- window -->
+<div>
+  <div>
+    <button id="open-btn">팝업열기</button>
+  </div>
+  <div>
+    <button id="close-btn">팝업닫기</button>
+  </div>
+  <div>
+    <input type="text" id="parent-msg">
+    <button id="send-btn">팝업으로전송</button>
+    <div id="child-msg"></div>
+  </div>
+</div>
+<script>
+
+  // 전역 변수 (모든 함수에서 사용할 수 있다.)
+  var popup = null;
+  var doNotOpen = Cookies.get('do_not_open');  // do_not_open 쿠키가 없으면 undefined
+  
+  // 팝업 화면 중앙에 열기
+  var width = 320;
+  var height = 480;
+  var left = (screen.width - width) / 2;
+  var vTop = (screen.height - height) / 2;
+  var features = 'width='+width+',height='+height+',top='+vTop+',left='+left;
+
+  // 팝업 열기
+  function openPopup(){
+    if(!doNotOpen) {
+      console.log(features);
+      popup = open('popup.html', '', features);
+      if(!popup) {
+        alert('팝업 차단을 해제해 주세요.');
+      }
+    }
+  }
+
+  // 팝업 닫기
+  function closePopup(){
+    if(popup){
+      popup.close();
+    }
+  }
+
+  // 팝업으로전송
+  function sendPopup(){
+    
+    // popup.document.getElementById('parent-msg') 인식을 위해서 popup 창의 본문을 모두 읽은 뒤 코드를 처리하는 load 이벤트가 필요하다.
+
+    /* 표준 이벤트 모델
+    popup.addEventListener('load', function(evt){
+      // child's <div id="parent-msg"> ← parent's <input id="parent-msg">
+      popup.document.getElementById('parent-msg').textContent = document.getElementById('parent-msg').value;
+    }) */
+
+    /* 고전 이벤트 모델 */
+    popup.onload = function(evt){
+      // child's <div id="parent-msg"> ← parent's <input id="parent-msg">
+      popup.document.getElementById('parent-msg').textContent = document.getElementById('parent-msg').value;
+    }
+
+  }
+
+  // 이벤트 처리
+  document.getElementById('open-btn').addEventListener('click', openPopup);
+  document.getElementById('close-btn').addEventListener('click', closePopup);
+  document.getElementById('send-btn').addEventListener('click', function(evt){
+    openPopup();
+    sendPopup();
+  });
 
 </script>
 
