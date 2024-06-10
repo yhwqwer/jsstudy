@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="div1"></div>
+  <script>
+
+    // let 선언 키워드 (지역 변수 선언, 중괄호내부에서만 사용가능, 재사용 불가하다.)
+    let array = [10, 'hello'];
+    for(let i = 0; i < array.length; i++)
+      console.log(array[i]);
+
+    // const 선언 키워드 (상수 선언, DOM 과 함수 처리할때 많이 사용한다.)
+    const div1 = document.getElementById('div1');
+    div1.textContent = 'hello world';
+    const fn = function(){
+      console.log("fn()");
+    }
+    fn();
+
+  </script>
+
+  <div id="div2"></div>
+  <button type="button" id="get-btn">버튼</button>
+  <script>
+
+    // arrow function (화살표 함수, 익명 함수만 대체 가능하다.)
+
+    const div2 = document.getElementById('div2');
+    const getBtn = document.getElementById('get-btn');
+
+    getBtn.addEventListener('click', (evt)=>{
+      div2.textContent = evt.target.textContent;
+    })
+
+  </script>
+
+  <div id="div3">
+    <input type="text" id="number1">
+    <input type="text" id="number2">
+    <button type="button" id="plus-btn">+</button>
+    <input type="text" id="result" readonly="readonly">
+  </div>
+  <script>
+
+    // 실행문이 하나인 경우 중괄호 {} 를 생략할 수 있다.
+    // return 만 존재하는 경우 return 을 생략하고 값만 작성할 수 있다.
+
+    const number1 = document.getElementById('number1');
+    const number2 = document.getElementById('number2');
+    const plusBtn = document.getElementById('plus-btn');
+    const result = document.getElementById('result');
+
+    /*
+    const plus = (n1, n2)=>{
+      return n1 + n2;
+    }
+    */
+    const plus = (n1, n2)=>n1 + n2;
+    plusBtn.addEventListener('click', (evt)=>{
+      result.value = plus(number1.value, number2.value);
+    })
+    
+
+
+  </script>
+
+
+
+  <div id="div4"></div>
+  <button type="button" id="load-btn">버튼</button>
+  <script>
+
+    // 구조 분해 할당 (destructuring)
+
+    // 1) 객체
+    const car = {
+      model: '5시리즈',
+      maker: 'bmw'
+    }
+
+    let { model, maker } = car;
+    console.log(model, maker);
+
+    const div3 = document.getElementById('div3');
+    const loadBtn = document.getElementById('load-btn');
+    loadBtn.addEventListener('click', (evt)=>{
+      let { type, target } = evt;
+      div4.textContent += '이벤트종류 : ' + type + '&nbsp;';
+      div4.textContent += '이벤트대상 : ' + target.textContent;
+    })
+
+    // 2) 배열
+    const seasons = ['spring', 'summer', 'autumn', 'winter']
+    const [season1, season2] = seasons;
+    console.log(season1, season2);
+
+  </script>
+
+  <script>
+
+    // 말 줄임표 (spread, 두번 선언 불가)
+    const movies1 = ['home alone', 'pretty woman', 'alien'];
+    const movies2 = ['heat', 'dune'];
+    const movies = [...movies1, ...movies2];
+    console.log(movies);
+
+    const printNumbers = (...numbers)=>{
+      console.log(numbers);
+    }
+    printNumbers(1);
+    printNumbers(1,2);
+    printNumbers(1,2,3);
+
+  </script>
+
+</body>
+</html>
