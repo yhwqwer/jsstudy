@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  
+<script>
+
+  /*
+    jQuery 이벤트
+
+    1. on()
+      1) 하나의 이벤트 대상(target)에 여러 개의 이벤트 리스너(function)를 등록할 수 있다.
+      2) 형식
+        (1) 정적 요소
+          target.on('type', listener)
+        (2) 동적 요소
+          parent.on('type', target, listener)
+    2. off()
+      1) 등록된 이벤트를 제거한다.
+      2) 형식
+        target.off('type')
+    3. one()
+      1) 한 번만 동작하는 이벤트를 작성한다.
+      2) 형식
+        target.one('type', listener)
+    4. trigger()
+      1) 강제로 이벤트를 발생시킨다.
+      2) 형식
+        target.trigger('type')
+  */
+
+</script>
+
+<div>
+  <button type="button" id="btn1">버튼1</button>
+</div>
+<script>
+
+  // 버튼 클릭하면 "버튼1" alert 에 띄우기
+  $('#btn1').on('click', (evt)=>{
+    alert($(evt.target).text());  // alert(evt.target.textContent);
+  })
+
+</script>
+
+<div>
+  <ul id="menu">
+    <li>김치찌개</li>
+    <li>된장찌개</li>
+    <li>순두부찌개</li>
+  </ul>
+</div>
+<script>
+
+  // JavaScript 이벤트는 반복 객체(literable)에 반복문을 이용해 개별 요소마다 이벤트를 등록할 수 있다.
+  const menuList = document.querySelectorAll('#menu > li');
+  for(let i = 0; i < menuList.length; i++){
+    menuList[i].addEventListener('click', (evt)=>{
+      alert(evt.target.textContent);
+    })
+  }
+  
+  // jQuery 이벤트는 반복 객체(literable)에 반복문 없이 이벤트를 등록할 수 있다.
+  /*
+  $('#menu > li').on('click', (evt)=>{
+    alert($(evt.target).text());
+  })
+  */
+
+</script>
+
+<div>
+  <button type="button" id="btn2">버튼2</button>
+  <button type="button" id="btn3">버튼3</button>
+</div>
+<script>
+  const $btn2 = $('#btn2');
+  $btn2.on('click', ()=>{
+    alert('안녕하세요');
+  })
+  $('#btn3').on('click', ()=>{
+    $btn2.trigger('click');
+  })
+</script>
+
+</body>
+</html>

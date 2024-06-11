@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
 
     // 비동기통신 : 응답을 기다리지 않는다.
     const ex1 = ()=>{
+
       // 1) 변수 선언 : 초기화가 없으면 undefined
       let authorId;
 
@@ -29,11 +31,11 @@
         }
       })
 
-      // 3) 변수 확인 (비동기작업 수행 결과로 authorId 값이 채워지지만,
-      //  2)번 과정이 끝날때까지 기다리지 않고 authorId 변수 값을 확인한다.)
+      // 3) 변수 확인 (비동기작업 수행 결과로 authorId 값이 채워지지만, 2)번 과정이 끝날때까지 기다리지 않고 authorId 변수 값을 확인한다.)
       console.log(authorId);
 
     }
+
   </script>
 
   <div>
@@ -45,14 +47,14 @@
       Promise
 
       1. 비동기작업이 맞이할 미래의 성공 또는 실패에 따른 결과값을 처리하는 객체이다.
-      2. 비동기작업이 완료(성공, 실패) 되면 결과를 제공하겠다는 '약속'을 반환하는 방식으로 동작한다.
+      2. 비동기작업이 완료(성공, 실패)되면 결과를 제공하겠다는 '약속'을 반환하는 방식으로 동작한다.
       3. Promise 상태
         1) pending   : 대기상태(초기상태)
         2) fulfilled : 이행상태(성공)
         3) reject    : 거부상태(실패)
       4. Promise 생성자
         1) 형식
-          new Promise (executor)
+          new Promise(executor)
         2) executor
           1) 실행 함수를 의미한다.
           2) 파라미터가 resolve, reject 이다.
@@ -62,7 +64,7 @@
           (1) Promise의 이행함수를 콜백함수로 추가한다.
           (2) Promise의 이행함수와 거부함수를 콜백함수로 추가할 수도 있다.
           (3) 형식
-            then(()=>{ 이행함수 }, [()=>{ 거부함수 }])      // 두번째 함수는 []로 묶어서 생략할 수 있다.
+            then(()=>{ 이행함수 }, [()=>{ 거부함수 }])
         2) catch()
           (1) Promise의 거부함수를 콜백함수로 추가한다.
           (2) 형식
@@ -101,6 +103,62 @@
       });
 
     }
+
+  </script>
+
+  <div id="div3">
+    <button type="button" id="btn3">ex3</button>
+  </div>
+  <script>
+
+    const ex3 = (url)=>{
+      return new Promise((resolve, reject)=>{
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.send();
+        xhr.addEventListener('readystatechange', (evt)=>{
+          if(xhr.readyState !== 4)
+            return;
+          if(xhr.status !== 200)
+            reject(xhr.statusText);
+            const authors = JSON.parse(xhr.responseText);
+            resolve(authors);
+        })
+      })
+    }
+
+    document.getElementById('btn3').addEventListener('click', (evt)=>{
+      ex3('https://thetestrequest.com/authors')
+      .then((resData)=>{
+        console.log(typeof resData);
+        console.log(resData);
+      })
+      .catch((statusText)=>{
+        alert(statusText);
+      })
+    })
+
+  </script>
+
+  <div id="div4">
+    <button type="button" id="btn4">ex4</button>
+  </div>
+  <script>
+
+    const ex4 = ()=>{
+      
+    }
+
+    document.getElementById('btn4').addEventListener('click', (evt)=>{
+      ex4('https://thetestrequest.com/authors', { method: 'GET' })
+      .then((resData)=>{
+        console.log(typeof resData);
+        console.log(resData);
+      })
+      .catch((statusText)=>{
+        alert(statusText);
+      })
+    })
 
   </script>
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<script>
+  
+  /*
+    fetch() 전역 함수
+    1. 네트워크에서 자원을 취득한 뒤 응답 가능 상태가 되면 이를 이행하는 Promise 객체를 반환하는 함수이다.
+    2. 반환하는 Promise 객체에는  Response 객체가 저장된다.
+    3. Response 객체의 데이터 반환 주요 메소드
+      1) json() : JSON 데이터를 저장한 Promise 객체를 반환
+      2) text() : 텍스트 데이터(XML 등) 를 저장한 Promise 객체를 반환
+      3) blob() : 바이너리 데이터를 저장한 Promise 객체를 반환
+      4) formData() : 폼 데이터를 저장한 Promise 객체를 반환
+    4. 형식
+      fetch(resource, [options]) 
+      1) resource   : 요청한 자원(일반적으로 URL 또는 Request 객체)
+      2) options    : 요청 설정 객체
+        (1) method  : 요청 메소드 (GET, POST, PUT, DELETE 등)
+        (2) headers : 요청 헤더
+        (3) body    : 요청 본문 (FormData 객체 등)
+        */
+       
+</script>
+
+<script>
+
+  fetch('https://thetestrequest.com/authors', {
+    method: 'GET'
+  })
+  .then((response)=>response.json())
+  .then(resData=>{
+    console.log(typeof resData);
+    console.log(resData);
+  })
+
+</script>
+<script>
+
+  /* XML 요청 */
+
+  const options = {
+    method: 'GET'
+  }
+
+  // XML 데이터를 일반 텍스트로 받은 뒤 XMLDocument 로 변경해서 처리하기
+
+  fetch('https://thetestrequest.com/authors.xml', options)
+  .then(response=>response.text())
+  .then(resData=>{
+    const domParser = new DOMParser();
+    const xmlDocument = domParser.parseFromString(resData, 'application/xml');
+    console.log(xmlDocument);
+    console.log(xmlDocument.getElementsByTagName('object'));
+  })
+
+</script>
+
+<div>
+  <button type="button" id="display-btn">이미지표시하기</button>
+</div>
+<div>
+  <img id="image" alt="이미지가 표시됩니다.">
+</div>
+<script>
+
+  /* blob() 데이터 */
+
+  document.getElementById('display-btn').addEventListener('click', (evt)=>{
+    fetch('../assets/images/404.jpg')
+    .then(response=>response.blob())
+    .then(resData=>{
+      document.getElementById('image').src = URL.createObjectURL(resData);
+    })
+  })
+
+
+
+</script>
+
+
+</body>
+</html>

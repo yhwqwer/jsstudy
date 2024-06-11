@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../assets/lib/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  
+  <div>
+    <button type="button" id="btn1">버튼1</button>
+  </div>
+  <script>
+    $('#btn1').on('click', evt=>{
+      $.ajax({
+        /* 요청 */
+        type: 'GET',
+        url: 'https://thetestrequest.com/authors',
+        /* 응답 */
+        dataType: 'json',  // 'xml', 'text' 등
+        success: resData=>{
+          console.log(resData);
+        },
+        error: jqXHR=>{
+          console.log(jqXHR.status);
+          console.log(jqXHR.responseText);
+        }
+      })
+    })
+  </script>
+
+  <div>
+    <button type="button" id="btn2">버튼2</button>
+  </div>
+  <script>
+    $('#btn2').on('click', evt=>{
+      $.ajax({
+        type: 'GET',
+        url: 'https://thetestrequest.com/authors',
+        dataType: 'json'
+      })
+      .done(resData=>{
+        console.log(resData);
+      })
+      .fail(jqXHR=>{
+        console.log(jqXHR.status);
+        console.log(jqXHR.responseText);
+      })
+    })
+  </script>
+
+  <div>
+    <button type="button" id="btn3">버튼3</button>
+  </div>
+  <form id="parameters">
+    <input type="hidden" name="serviceKey" value="MWxMevF6kGIy6C0z1ERGqOcJuOdlcP7YamxJ643XhwtK9j1seM7fJkqst7WNJggdaiEAicndrS8yN1JaMCkRbg%3D%3D">
+    <input type="hidden" name="searchYear" value="2022">
+    <input type="hidden" name="siDo" value="2300">
+    <input type="hidden" name="guGun" value="2304">
+    <input type="hidden" name="numOfRows" value="10">
+    <input type="hidden" name="pageNo" value="1">
+    <input type="hidden" name="type" value="json">
+  </form>
+  <script>
+    $('#btn3').on('click', evt=>{
+      $.ajax({
+        type: 'GET',
+        url: 'http://apis.data.go.kr/B552061/AccidentDeath/getRestTrafficAccidentDeath',
+        data: $('#parameters').serialize(),
+        dataType: 'xml',
+        success: resData=>{
+          console.log(resData);
+        },
+        error: jqXHR=>{
+          console.log(jqXHR.status);
+          console.log(jqXHR.responseText);
+        }
+      })
+    })
+  </script>
+
+</body>
+</html>

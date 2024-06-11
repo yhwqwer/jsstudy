@@ -48,8 +48,12 @@
   </div>
   <script>
 
-    // 실행문이 하나인 경우 중괄호 {} 를 생략할 수 있다.
-    // return 만 존재하는 경우 return 을 생략하고 값만 작성할 수 있다.
+    /*
+      arrow function 특징
+      1. 매개변수가 하나인 경우 소괄호 () 를 생략할 수 있다.
+      2. 실행문이 하나인 경우 중괄호 {} 를 생략할 수 있다.
+      3. return 만 존재하는 경우 return 을 생략하고 값만 작성할 수 있다.
+    */
 
     const number1 = document.getElementById('number1');
     const number2 = document.getElementById('number2');
@@ -118,6 +122,26 @@
     printNumbers(1,2,3);
 
   </script>
+
+  <script>
+    /*
+      back tick (``)
+      1. template literal
+      2. multiple line
+    */
+
+    const name = '홍길동';
+    console.log('내 이름은 ' + name + '입니다.');
+    console.log(`내 이름은 ${name}입니다.`);
+
+    const str = `안녕하세요 
+반갑습니다`;
+    console.log(str);
+
+  </script>
+
+
+
 
 </body>
 </html>
